@@ -1,0 +1,9 @@
+<resources>
+  <string name="app_name">MovieCompose</string>
+  <string name="menu_movie">Movie</string>
+  <string name="menu_tv">Tv</string>
+  <string name="menu_person">Person</string>
+  <string name="reviews">Reviews</string>
+  <string name="summary">Summary</string>
+  <string name="trailers">Trailers</string>
+</resources>

@@ -1,0 +1,178 @@
+plugins {
+  id 'com.android.application'
+  id 'kotlin-android'
+  id 'kotlin-kapt'
+  id 'dagger.hilt.android.plugin'
+}
+
+apply from: '../dependencies.gradle'
+
+def getProperty(String filename, String propName) {
+  def propsFile = rootProject.file(filename)
+  if (propsFile.exists()) {
+    def props = new Properties()
+    props.load(new FileInputStream(propsFile))
+    if (props[propName] != null) {
+      return props[propName]
+    } else {
+      print("No such property " + propName + " in file " + filename)
+    }
+  } else {
+    print(filename + " does not exist!")
+  }
+}
+
+android {
+  compileSdk versions.compileSdk
+
+  defaultConfig {
+    applicationId "com.skydoves.moviecompose"
+    minSdkVersion versions.minSdk
+    targetSdkVersion versions.compileSdk
+    versionCode versions.versionCode
+    versionName versions.versionName
+    buildConfigField "String", "TMDB_API_KEY", "\"${getProperty("local.properties", "tmdb_api_key")}\""
+    javaCompileOptions {
+      annotationProcessorOptions {
+        arguments += ["room.schemaLocation" : "$projectDir/schemas".toString()]
+      }
+    }
+    javaCompileOptions {
+      annotationProcessorOptions {
+        arguments["dagger.hilt.disableModulesHaveInstallInCheck"] = "true"
+      }
+    }
+  }
+  lintOptions {
+    abortOnError false
+  }
+  compileOptions {
+    sourceCompatibility JavaVersion.VERSION_1_8
+    targetCompatibility JavaVersion.VERSION_1_8
+  }
+  composeOptions {
+    kotlinCompilerExtensionVersion versions.composeVersion
+  }
+  kotlinOptions {
+    jvmTarget = '1.8'
+    freeCompilerArgs += [
+        "-Xallow-jvm-ir-dependencies",
+        "-Xskip-prerelease-check"]
+    useIR = true
+  }
+  buildFeatures {
+    compose true
+  }
+  sourceSets {
+    androidTest.java.srcDirs += "src/test-common/java"
+    test.java.srcDirs += "src/test-common/java"
+    test.assets.srcDirs += files("$projectDir/schemas".toString())
+  }
+  testOptions {
+    unitTests {
+      includeAndroidResources = true
+      returnDefaultValues = true
+    }
+  }
+  packagingOptions {
+    exclude 'META-INF/DEPENDENCIES'
+    exclude 'META-INF/LICENSE'
+    exclude 'META-INF/LICENSE.txt'
+    exclude 'META-INF/license.txt'
+    exclude 'META-INF/NOTICE'
+    exclude 'META-INF/NOTICE.txt'
+    exclude 'META-INF/notice.txt'
+    exclude 'META-INF/ASL2.0'
+    exclude 'META-INF/AL2.0'
+    exclude 'META-INF/LGPL2.1'
+    exclude("META-INF/*.kotlin_module")
+  }
+  tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
+    kotlinOptions.freeCompilerArgs += ["-Xopt-in=kotlin.time.ExperimentalTime"]
+    kotlinOptions.freeCompilerArgs += ["-Xopt-in=kotlinx.coroutines.ExperimentalCoroutinesApi"]
+    kotlinOptions.freeCompilerArgs += ["-Xopt-in=androidx.compose.foundation.ExperimentalFoundationApi"]
+  }
+}
+
+dependencies {
+
+  // material
+  implementation "com.google.android.material:material:$versions.materialVersion"
+
+  // compose
+  implementation "androidx.compose.ui:ui:$versions.composeVersion"
+  implementation "androidx.activity:activity-compose:$versions.activityVersion"
+  implementation "androidx.compose.material:material:$versions.composeVersion"
+  implementation "androidx.compose.material:material-icons-extended:$versions.composeVersion"
+  implementation "androidx.compose.foundation:foundation:$versions.composeVersion"
+  implementation "androidx.compose.foundation:foundation-layout:$versions.composeVersion"
+  implementation "androidx.compose.animation:animation:$versions.composeVersion"
+  implementation "androidx.compose.runtime:runtime:$versions.composeVersion"
+  implementation "androidx.compose.runtime:runtime-livedata:$versions.composeVersion"
+  implementation "androidx.navigation:navigation-compose:$versions.composeNavVersion"
+  implementation "androidx.compose.ui:ui-tooling:$versions.composeVersion"
+  androidTestImplementation "androidx.compose.ui:ui-test-junit4:$versions.composeVersion"
+  implementation "androidx.constraintlayout:constraintlayout-compose:$versions.constraintVersion"
+
+  // compose image loading
+  implementation "com.github.skydoves:landscapist-coil:$versions.landscapistVersion"
+
+  // compose insets
+  implementation "com.google.accompanist:accompanist-insets:$versions.accompanistVersion"
+  implementation "com.google.accompanist:accompanist-flowlayout:$versions.accompanistVersion"
+
+  // compose compatibles
+  implementation "com.github.skydoves:orchestra-balloon:$versions.orchestraVersion"
+
+  // architecture components
+  implementation "androidx.fragment:fragment-ktx:$versions.fragmentVersion"
+  implementation "androidx.lifecycle:lifecycle-extensions:$versions.lifecycleVersion"
+  implementation "androidx.lifecycle:lifecycle-runtime-ktx:$versions.lifecycleVersion"
+  implementation "androidx.lifecycle:lifecycle-livedata-ktx:$versions.lifecycleVersion"
+  implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$versions.lifecycleVersion"
+  implementation "androidx.room:room-runtime:$versions.roomVersion"
+  implementation "androidx.room:room-ktx:$versions.roomVersion"
+  kapt "androidx.room:room-compiler:$versions.roomVersion"
+  testImplementation "androidx.arch.core:core-testing:$versions.archCompomentVersion"
+
+  // startup
+  implementation "androidx.startup:startup-runtime:$versions.startupVersion"
+
+  // hilt
+  implementation "com.google.dagger:hilt-android:$versions.hiltCoreVersion"
+  implementation "androidx.hilt:hilt-navigation-compose:$versions.hiltComposeNavigation"
+  kapt "com.google.dagger:hilt-compiler:$versions.hiltCoreVersion"
+  kapt "androidx.hilt:hilt-compiler:$versions.hiltVersion"
+  androidTestImplementation "com.google.dagger:hilt-android-testing:$versions.hiltCoreVersion"
+  kaptAndroidTest "com.google.dagger:hilt-compiler:$versions.hiltCoreVersion"
+
+  // network
+  implementation "com.github.skydoves:sandwich:$versions.sandwichVersion"
+  implementation "com.squareup.okhttp3:logging-interceptor:$versions.okhttpVersion"
+  implementation "com.squareup.retrofit2:converter-gson:$versions.retrofitVersion"
+  testImplementation "com.squareup.okhttp3:mockwebserver:$versions.okhttpVersion"
+
+  // coroutines
+  implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$versions.coroutinesVersion"
+  testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$versions.coroutinesVersion"
+  testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$versions.coroutinesVersion"
+
+  // whatIf
+  implementation "com.github.skydoves:whatif:$versions.whatIfVersion"
+
+  // logging
+  implementation "com.jakewharton.timber:timber:$versions.timberVersion"
+
+  // unit test
+  testImplementation "junit:junit:$versions.junitVersion"
+  testImplementation "androidx.test:core:$versions.androidxTest"
+  testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:$versions.mockitoKotlinVersion"
+  testImplementation "org.mockito:mockito-inline:$versions.mockitoInlineVersion"
+  testImplementation "app.cash.turbine:turbine:$versions.turbineVersion"
+  testImplementation "org.robolectric:robolectric:$versions.robolectricVersion"
+  androidTestImplementation "com.google.truth:truth:$versions.truthVersion"
+  androidTestImplementation "androidx.test.ext:junit:$versions.androidxTestJunit"
+  androidTestImplementation "com.android.support.test:runner:$versions.androidTestRunner"
+}
+
+apply from: '../spotless.gradle'

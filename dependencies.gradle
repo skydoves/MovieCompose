@@ -1,0 +1,67 @@
+ext.versions = [
+    minSdk               : 21,
+    compileSdk           : 31,
+    versionCode          : 1,
+    versionName          : '1.0.0',
+
+    gradleBuildTool      : '7.0.0',
+    spotlessGradle       : '5.14.0',
+    kotlin               : '1.5.21',
+
+    // material
+    materialVersion      : '1.5.0-alpha02',
+
+    // compose
+    composeVersion       : '1.0.1',
+    constraintVersion    : '1.0.0-beta02',
+    activityVersion      : '1.3.0-rc02',
+    composeNavVersion    : '2.4.0-alpha07',
+
+    // compose image loading
+    landscapistVersion   : '1.3.3',
+
+    // compose compatibles
+    orchestraVersion     : '1.1.0',
+
+    // compose insets
+    accompanistVersion   : '0.17.0',
+
+    // architecture components
+    fragmentVersion      : '1.3.6',
+    lifecycleVersion     : '2.2.0',
+    roomVersion          : '2.3.0',
+    archCompomentVersion : '2.1.0',
+
+    // startup
+    startupVersion       : '1.1.0',
+
+    // di
+    hiltCoreVersion      : '2.37',
+    hiltVersion          : '1.0.0',
+    hiltComposeNavigation: '1.0.0-alpha03',
+
+    // network
+    retrofitVersion      : '2.9.0',
+    okhttpVersion        : '4.7.2',
+    sandwichVersion      : '1.2.0',
+
+    // coroutines
+    coroutinesVersion    : '1.4.1',
+
+    // whatIf
+    whatIfVersion        : '1.1.0',
+
+    // debugging
+    timberVersion        : '4.7.1',
+
+    // unit test
+    truthVersion         : '1.0.1',
+    junitVersion         : '4.12',
+    turbineVersion       : '0.2.0',
+    robolectricVersion   : '4.3.1',
+    androidxTest         : '1.3.0',
+    androidxTestJunit    : '1.1.2-rc01',
+    androidTestRunner    : '1.3.0-beta01',
+    mockitoKotlinVersion : '2.2.0',
+    mockitoInlineVersion : '3.3.3'
+]
