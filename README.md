@@ -12,8 +12,8 @@ MovieCompose is a small demo application based on modern Android tech-stacks esp
 </br>
 
 <p align="center">
-<img src="/previews/preview0.gif"/>
-<img src="/previews/preview1.gif"/>
+<img src="/previews/preview0.gif" width="33%"/>
+<img src="/previews/preview1.gif" width="33%"/>
 </p>
 
 
