@@ -12,8 +12,7 @@ MovieCompose is a small demo application based on modern Android tech-stacks esp
 </br>
 
 <p align="center">
-<img src="/previews/preview0.gif" width="33%"/>
-<img src="/previews/preview1.gif" width="33%"/>
+<img src="/previews/preview2.png" />
 </p>
 
 
@@ -22,6 +21,8 @@ Add your [The Movie DB](https://www.themoviedb.org/)'s API key in local.properti
 ```xml
 tmdb_api_key=YOUR_API_KEY
 ```
+
+<img src="/previews/preview0.gif" align="right" width="32%"/>
 
 ## Tech stack & Open-source libraries
 - Minimum SDK level 21
