@@ -17,6 +17,13 @@
 package com.skydoves.moviecompose.ui.main
 
 import androidx.annotation.StringRes
+import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.animation.core.FastOutSlowInEasing
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.rememberLazyListState
@@ -39,11 +46,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavType
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
 import androidx.navigation.compose.navArgument
-import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.insets.ProvideWindowInsets
+import com.google.accompanist.navigation.animation.AnimatedNavHost
+import com.google.accompanist.navigation.animation.composable
+import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import com.skydoves.moviecompose.R
 import com.skydoves.moviecompose.ui.movie.MovieDetailScreen
 import com.skydoves.moviecompose.ui.navigation.NavScreen
@@ -51,9 +58,10 @@ import com.skydoves.moviecompose.ui.people.PersonDetailScreen
 import com.skydoves.moviecompose.ui.theme.purple200
 import com.skydoves.moviecompose.ui.tv.TvDetailScreen
 
+@ExperimentalAnimationApi
 @Composable
 fun MainScreen() {
-  val navController = rememberNavController()
+  val navController = rememberAnimatedNavController()
   val tabStateHolder = HomeTabStateHolder(
     rememberLazyListState(),
     rememberLazyListState(),
@@ -61,8 +69,47 @@ fun MainScreen() {
   )
 
   ProvideWindowInsets {
-    NavHost(navController = navController, startDestination = NavScreen.Home.route) {
-      composable(NavScreen.Home.route) {
+    val duration = 500
+    AnimatedNavHost(navController = navController, startDestination = NavScreen.Home.route) {
+      composable(
+        NavScreen.Home.route,
+        enterTransition = { _, _ ->
+          slideInHorizontally(
+            initialOffsetX = { 1000 },
+            animationSpec = tween(
+              durationMillis = duration,
+              easing = FastOutSlowInEasing
+            )
+          ) + fadeIn(animationSpec = tween(durationMillis = duration))
+        },
+        exitTransition = { _, _ ->
+          slideOutHorizontally(
+            targetOffsetX = { -1000 },
+            animationSpec = tween(
+              durationMillis = duration,
+              easing = FastOutSlowInEasing
+            )
+          ) + fadeOut(animationSpec = tween(durationMillis = duration))
+        },
+        popEnterTransition = { _, _ ->
+          slideInHorizontally(
+            initialOffsetX = { -1000 },
+            animationSpec = tween(
+              durationMillis = duration,
+              easing = FastOutSlowInEasing
+            )
+          ) + fadeIn(animationSpec = tween(durationMillis = duration))
+        },
+        popExitTransition = { _, _ ->
+          slideOutHorizontally(
+            targetOffsetX = { 1000 },
+            animationSpec = tween(
+              durationMillis = duration,
+              easing = FastOutSlowInEasing
+            )
+          ) + fadeOut(animationSpec = tween(durationMillis = duration))
+        }
+      ) {
         HomeTabScreen(
           viewModel = hiltViewModel(),
           tabStateHolder = tabStateHolder,
@@ -79,11 +126,48 @@ fun MainScreen() {
         route = NavScreen.MovieDetails.routeWithArgument,
         arguments = listOf(
           navArgument(NavScreen.MovieDetails.argument0) { type = NavType.LongType }
-        )
+        ),
+        enterTransition = { _, _ ->
+          slideInHorizontally(
+            initialOffsetX = { 1000 },
+            animationSpec = tween(
+              durationMillis = duration,
+              easing = FastOutSlowInEasing
+            )
+          ) + fadeIn(animationSpec = tween(durationMillis = duration))
+        },
+        exitTransition = { _, _ ->
+          slideOutHorizontally(
+            targetOffsetX = { -1000 },
+            animationSpec = tween(
+              durationMillis = duration,
+              easing = FastOutSlowInEasing
+            )
+          ) + fadeOut(animationSpec = tween(durationMillis = duration))
+        },
+        popEnterTransition = { _, _ ->
+          slideInHorizontally(
+            initialOffsetX = { -1000 },
+            animationSpec = tween(
+              durationMillis = duration,
+              easing = FastOutSlowInEasing
+            )
+          ) + fadeIn(animationSpec = tween(durationMillis = duration))
+        },
+        popExitTransition = { _, _ ->
+          slideOutHorizontally(
+            targetOffsetX = { 1000 },
+            animationSpec = tween(
+              durationMillis = duration,
+              easing = FastOutSlowInEasing
+            )
+          ) + fadeOut(animationSpec = tween(durationMillis = duration))
+        }
       ) { backStackEntry ->
 
         val posterId =
-          backStackEntry.arguments?.getLong(NavScreen.MovieDetails.argument0) ?: return@composable
+          backStackEntry.arguments?.getLong(NavScreen.MovieDetails.argument0)
+            ?: return@composable
 
         MovieDetailScreen(posterId, hiltViewModel()) {
           navController.navigateUp()
@@ -93,11 +177,47 @@ fun MainScreen() {
         route = NavScreen.TvDetails.routeWithArgument,
         arguments = listOf(
           navArgument(NavScreen.TvDetails.argument0) { type = NavType.LongType }
-        )
+        ),
+        enterTransition = { _, _ ->
+          slideInHorizontally(
+            initialOffsetX = { 1000 },
+            animationSpec = tween(
+              durationMillis = duration,
+              easing = FastOutSlowInEasing
+            )
+          ) + fadeIn(animationSpec = tween(durationMillis = duration))
+        },
+        exitTransition = { _, _ ->
+          slideOutHorizontally(
+            targetOffsetX = { -1000 },
+            animationSpec = tween(
+              durationMillis = duration,
+              easing = FastOutSlowInEasing
+            )
+          ) + fadeOut(animationSpec = tween(durationMillis = duration))
+        },
+        popEnterTransition = { _, _ ->
+          slideInHorizontally(
+            initialOffsetX = { -1000 },
+            animationSpec = tween(
+              durationMillis = duration,
+              easing = FastOutSlowInEasing
+            )
+          ) + fadeIn(animationSpec = tween(durationMillis = duration))
+        },
+        popExitTransition = { _, _ ->
+          slideOutHorizontally(
+            targetOffsetX = { 1000 },
+            animationSpec = tween(
+              durationMillis = duration,
+              easing = FastOutSlowInEasing
+            )
+          ) + fadeOut(animationSpec = tween(durationMillis = duration))
+        }
       ) { backStackEntry ->
 
-        val posterId =
-          backStackEntry.arguments?.getLong(NavScreen.TvDetails.argument0) ?: return@composable
+        val posterId = backStackEntry.arguments?.getLong(NavScreen.TvDetails.argument0)
+          ?: return@composable
 
         TvDetailScreen(posterId, hiltViewModel()) {
           navController.navigateUp()
@@ -107,11 +227,48 @@ fun MainScreen() {
         route = NavScreen.PersonDetails.routeWithArgument,
         arguments = listOf(
           navArgument(NavScreen.PersonDetails.argument0) { type = NavType.LongType }
-        )
+        ),
+        enterTransition = { _, _ ->
+          slideInHorizontally(
+            initialOffsetX = { 1000 },
+            animationSpec = tween(
+              durationMillis = duration,
+              easing = FastOutSlowInEasing
+            )
+          ) + fadeIn(animationSpec = tween(durationMillis = duration))
+        },
+        exitTransition = { _, _ ->
+          slideOutHorizontally(
+            targetOffsetX = { -1000 },
+            animationSpec = tween(
+              durationMillis = duration,
+              easing = FastOutSlowInEasing
+            )
+          ) + fadeOut(animationSpec = tween(durationMillis = duration))
+        },
+        popEnterTransition = { _, _ ->
+          slideInHorizontally(
+            initialOffsetX = { -1000 },
+            animationSpec = tween(
+              durationMillis = duration,
+              easing = FastOutSlowInEasing
+            )
+          ) + fadeIn(animationSpec = tween(durationMillis = duration))
+        },
+        popExitTransition = { _, _ ->
+          slideOutHorizontally(
+            targetOffsetX = { 1000 },
+            animationSpec = tween(
+              durationMillis = duration,
+              easing = FastOutSlowInEasing
+            )
+          ) + fadeOut(animationSpec = tween(durationMillis = duration))
+        }
       ) { backStackEntry ->
 
         val personId =
-          backStackEntry.arguments?.getLong(NavScreen.PersonDetails.argument0) ?: return@composable
+          backStackEntry.arguments?.getLong(NavScreen.PersonDetails.argument0)
+            ?: return@composable
 
         PersonDetailScreen(personId, hiltViewModel()) {
           navController.navigateUp()

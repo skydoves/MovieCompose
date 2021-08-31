@@ -121,6 +121,9 @@ dependencies {
   implementation "com.google.accompanist:accompanist-insets:$versions.accompanistVersion"
   implementation "com.google.accompanist:accompanist-flowlayout:$versions.accompanistVersion"
 
+  // navigation animation
+  implementation "com.google.accompanist:accompanist-navigation-animation:$versions.accompanistVersion"
+
   // compose compatibles
   implementation "com.github.skydoves:orchestra-balloon:$versions.orchestraVersion"
 
