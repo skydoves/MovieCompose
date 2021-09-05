@@ -17,13 +17,6 @@
 package com.skydoves.moviecompose.ui.main
 
 import androidx.annotation.StringRes
-import androidx.compose.animation.ExperimentalAnimationApi
-import androidx.compose.animation.core.FastOutSlowInEasing
-import androidx.compose.animation.core.tween
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
-import androidx.compose.animation.slideInHorizontally
-import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.rememberLazyListState
@@ -56,9 +49,9 @@ import com.skydoves.moviecompose.ui.movie.MovieDetailScreen
 import com.skydoves.moviecompose.ui.navigation.NavScreen
 import com.skydoves.moviecompose.ui.people.PersonDetailScreen
 import com.skydoves.moviecompose.ui.theme.purple200
+import com.skydoves.moviecompose.ui.transition.MovieTransitions
 import com.skydoves.moviecompose.ui.tv.TvDetailScreen
 
-@ExperimentalAnimationApi
 @Composable
 fun MainScreen() {
   val navController = rememberAnimatedNavController()
@@ -69,46 +62,13 @@ fun MainScreen() {
   )
 
   ProvideWindowInsets {
-    val duration = 500
     AnimatedNavHost(navController = navController, startDestination = NavScreen.Home.route) {
       composable(
         NavScreen.Home.route,
-        enterTransition = { _, _ ->
-          slideInHorizontally(
-            initialOffsetX = { 1000 },
-            animationSpec = tween(
-              durationMillis = duration,
-              easing = FastOutSlowInEasing
-            )
-          ) + fadeIn(animationSpec = tween(durationMillis = duration))
-        },
-        exitTransition = { _, _ ->
-          slideOutHorizontally(
-            targetOffsetX = { -1000 },
-            animationSpec = tween(
-              durationMillis = duration,
-              easing = FastOutSlowInEasing
-            )
-          ) + fadeOut(animationSpec = tween(durationMillis = duration))
-        },
-        popEnterTransition = { _, _ ->
-          slideInHorizontally(
-            initialOffsetX = { -1000 },
-            animationSpec = tween(
-              durationMillis = duration,
-              easing = FastOutSlowInEasing
-            )
-          ) + fadeIn(animationSpec = tween(durationMillis = duration))
-        },
-        popExitTransition = { _, _ ->
-          slideOutHorizontally(
-            targetOffsetX = { 1000 },
-            animationSpec = tween(
-              durationMillis = duration,
-              easing = FastOutSlowInEasing
-            )
-          ) + fadeOut(animationSpec = tween(durationMillis = duration))
-        }
+        enterTransition = { _, _ -> MovieTransitions.enterTransition() },
+        exitTransition = { _, _ -> MovieTransitions.exitTransition() },
+        popEnterTransition = { _, _ -> MovieTransitions.popEnterTransition() },
+        popExitTransition = { _, _ -> MovieTransitions.popExitTransition() }
       ) {
         HomeTabScreen(
           viewModel = hiltViewModel(),
@@ -127,42 +87,10 @@ fun MainScreen() {
         arguments = listOf(
           navArgument(NavScreen.MovieDetails.argument0) { type = NavType.LongType }
         ),
-        enterTransition = { _, _ ->
-          slideInHorizontally(
-            initialOffsetX = { 1000 },
-            animationSpec = tween(
-              durationMillis = duration,
-              easing = FastOutSlowInEasing
-            )
-          ) + fadeIn(animationSpec = tween(durationMillis = duration))
-        },
-        exitTransition = { _, _ ->
-          slideOutHorizontally(
-            targetOffsetX = { -1000 },
-            animationSpec = tween(
-              durationMillis = duration,
-              easing = FastOutSlowInEasing
-            )
-          ) + fadeOut(animationSpec = tween(durationMillis = duration))
-        },
-        popEnterTransition = { _, _ ->
-          slideInHorizontally(
-            initialOffsetX = { -1000 },
-            animationSpec = tween(
-              durationMillis = duration,
-              easing = FastOutSlowInEasing
-            )
-          ) + fadeIn(animationSpec = tween(durationMillis = duration))
-        },
-        popExitTransition = { _, _ ->
-          slideOutHorizontally(
-            targetOffsetX = { 1000 },
-            animationSpec = tween(
-              durationMillis = duration,
-              easing = FastOutSlowInEasing
-            )
-          ) + fadeOut(animationSpec = tween(durationMillis = duration))
-        }
+        enterTransition = { _, _ -> MovieTransitions.enterTransition() },
+        exitTransition = { _, _ -> MovieTransitions.exitTransition() },
+        popEnterTransition = { _, _ -> MovieTransitions.popEnterTransition() },
+        popExitTransition = { _, _ -> MovieTransitions.popExitTransition() }
       ) { backStackEntry ->
 
         val posterId =
@@ -178,42 +106,10 @@ fun MainScreen() {
         arguments = listOf(
           navArgument(NavScreen.TvDetails.argument0) { type = NavType.LongType }
         ),
-        enterTransition = { _, _ ->
-          slideInHorizontally(
-            initialOffsetX = { 1000 },
-            animationSpec = tween(
-              durationMillis = duration,
-              easing = FastOutSlowInEasing
-            )
-          ) + fadeIn(animationSpec = tween(durationMillis = duration))
-        },
-        exitTransition = { _, _ ->
-          slideOutHorizontally(
-            targetOffsetX = { -1000 },
-            animationSpec = tween(
-              durationMillis = duration,
-              easing = FastOutSlowInEasing
-            )
-          ) + fadeOut(animationSpec = tween(durationMillis = duration))
-        },
-        popEnterTransition = { _, _ ->
-          slideInHorizontally(
-            initialOffsetX = { -1000 },
-            animationSpec = tween(
-              durationMillis = duration,
-              easing = FastOutSlowInEasing
-            )
-          ) + fadeIn(animationSpec = tween(durationMillis = duration))
-        },
-        popExitTransition = { _, _ ->
-          slideOutHorizontally(
-            targetOffsetX = { 1000 },
-            animationSpec = tween(
-              durationMillis = duration,
-              easing = FastOutSlowInEasing
-            )
-          ) + fadeOut(animationSpec = tween(durationMillis = duration))
-        }
+        enterTransition = { _, _ -> MovieTransitions.enterTransition() },
+        exitTransition = { _, _ -> MovieTransitions.exitTransition() },
+        popEnterTransition = { _, _ -> MovieTransitions.popEnterTransition() },
+        popExitTransition = { _, _ -> MovieTransitions.popExitTransition() }
       ) { backStackEntry ->
 
         val posterId = backStackEntry.arguments?.getLong(NavScreen.TvDetails.argument0)
@@ -228,42 +124,10 @@ fun MainScreen() {
         arguments = listOf(
           navArgument(NavScreen.PersonDetails.argument0) { type = NavType.LongType }
         ),
-        enterTransition = { _, _ ->
-          slideInHorizontally(
-            initialOffsetX = { 1000 },
-            animationSpec = tween(
-              durationMillis = duration,
-              easing = FastOutSlowInEasing
-            )
-          ) + fadeIn(animationSpec = tween(durationMillis = duration))
-        },
-        exitTransition = { _, _ ->
-          slideOutHorizontally(
-            targetOffsetX = { -1000 },
-            animationSpec = tween(
-              durationMillis = duration,
-              easing = FastOutSlowInEasing
-            )
-          ) + fadeOut(animationSpec = tween(durationMillis = duration))
-        },
-        popEnterTransition = { _, _ ->
-          slideInHorizontally(
-            initialOffsetX = { -1000 },
-            animationSpec = tween(
-              durationMillis = duration,
-              easing = FastOutSlowInEasing
-            )
-          ) + fadeIn(animationSpec = tween(durationMillis = duration))
-        },
-        popExitTransition = { _, _ ->
-          slideOutHorizontally(
-            targetOffsetX = { 1000 },
-            animationSpec = tween(
-              durationMillis = duration,
-              easing = FastOutSlowInEasing
-            )
-          ) + fadeOut(animationSpec = tween(durationMillis = duration))
-        }
+        enterTransition = { _, _ -> MovieTransitions.enterTransition() },
+        exitTransition = { _, _ -> MovieTransitions.exitTransition() },
+        popEnterTransition = { _, _ -> MovieTransitions.popEnterTransition() },
+        popExitTransition = { _, _ -> MovieTransitions.popExitTransition() }
       ) { backStackEntry ->
 
         val personId =
