@@ -40,7 +40,7 @@ import com.skydoves.moviecompose.ui.theme.shimmerHighLight
 @Preview
 @Composable
 fun NetworkImage(
-  @PreviewParameter(NetworkUrlPreviewProvider::class) networkUrl: String?,
+  @PreviewParameter(NetworkUrlPreviewProvider::class) networkUrl: Any?,
   modifier: Modifier = Modifier,
   circularReveal: CircularReveal? = null,
   contentScale: ContentScale = ContentScale.FillBounds,
@@ -55,7 +55,7 @@ fun NetworkImage(
   if (shimmerParams == null) {
     CoilImage(
       imageModel = url,
-      modifier = modifier,
+      modifier = modifier.fillMaxSize(),
       contentScale = contentScale,
       circularReveal = circularReveal,
       bitmapPalette = bitmapPalette,
@@ -71,7 +71,7 @@ fun NetworkImage(
   } else {
     CoilImage(
       imageModel = url,
-      modifier = modifier,
+      modifier = modifier.fillMaxSize(),
       contentScale = contentScale,
       circularReveal = circularReveal,
       bitmapPalette = bitmapPalette,
