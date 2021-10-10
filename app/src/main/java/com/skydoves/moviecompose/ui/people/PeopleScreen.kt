@@ -99,7 +99,7 @@ fun PeopleScreen(
 }
 
 @Composable
-fun PersonCard(
+private fun PersonCard(
   person: Person,
   selectPerson: (MainScreenHomeTab, Long) -> Unit,
   modifier: Modifier = Modifier

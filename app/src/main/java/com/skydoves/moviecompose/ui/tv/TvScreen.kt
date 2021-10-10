@@ -101,7 +101,7 @@ fun TvScreen(
 }
 
 @Composable
-fun TvPoster(
+private fun TvPoster(
   tv: Tv,
   selectPoster: (MainScreenHomeTab, Long) -> Unit,
   modifier: Modifier = Modifier

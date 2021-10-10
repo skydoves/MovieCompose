@@ -40,7 +40,7 @@ import com.skydoves.moviecompose.ui.theme.shimmerHighLight
 @Preview
 @Composable
 fun NetworkImage(
-  @PreviewParameter(NetworkUrlPreviewProvider::class) networkUrl: String?,
+  @PreviewParameter(NetworkUrlPreviewProvider::class) networkUrl: Any?,
   modifier: Modifier = Modifier,
   circularReveal: CircularReveal? = null,
   contentScale: ContentScale = ContentScale.FillBounds,
