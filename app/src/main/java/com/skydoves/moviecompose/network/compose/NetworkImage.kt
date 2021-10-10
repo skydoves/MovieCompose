@@ -55,7 +55,7 @@ fun NetworkImage(
   if (shimmerParams == null) {
     CoilImage(
       imageModel = url,
-      modifier = modifier.fillMaxSize(),
+      modifier = modifier,
       contentScale = contentScale,
       circularReveal = circularReveal,
       bitmapPalette = bitmapPalette,
@@ -71,7 +71,7 @@ fun NetworkImage(
   } else {
     CoilImage(
       imageModel = url,
-      modifier = modifier.fillMaxSize(),
+      modifier = modifier,
       contentScale = contentScale,
       circularReveal = circularReveal,
       bitmapPalette = bitmapPalette,
