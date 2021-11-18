@@ -125,6 +125,7 @@ fun MoviePoster(
       NetworkImage(
         networkUrl = Api.getPosterPath(movie.poster_path),
         modifier = Modifier
+          .fillMaxWidth()
           .height(240.dp)
           .constrainAs(image) {
             top.linkTo(parent.top)
