@@ -39,22 +39,21 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavType
-import androidx.navigation.compose.navArgument
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.google.accompanist.insets.ProvideWindowInsets
-import com.google.accompanist.navigation.animation.AnimatedNavHost
-import com.google.accompanist.navigation.animation.composable
-import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import com.skydoves.moviecompose.R
 import com.skydoves.moviecompose.ui.movie.MovieDetailScreen
 import com.skydoves.moviecompose.ui.navigation.NavScreen
 import com.skydoves.moviecompose.ui.people.PersonDetailScreen
 import com.skydoves.moviecompose.ui.theme.purple200
-import com.skydoves.moviecompose.ui.transition.MovieTransitions
 import com.skydoves.moviecompose.ui.tv.TvDetailScreen
 
 @Composable
 fun MainScreen() {
-  val navController = rememberAnimatedNavController()
+  val navController = rememberNavController()
   val tabStateHolder = HomeTabStateHolder(
     rememberLazyListState(),
     rememberLazyListState(),
@@ -62,13 +61,10 @@ fun MainScreen() {
   )
 
   ProvideWindowInsets {
-    AnimatedNavHost(navController = navController, startDestination = NavScreen.Home.route) {
+    NavHost(navController = navController, startDestination = NavScreen.Home.route) {
       composable(
-        NavScreen.Home.route,
-        enterTransition = { _, _ -> MovieTransitions.enterTransition() },
-        exitTransition = { _, _ -> MovieTransitions.exitTransition() },
-        popEnterTransition = { _, _ -> MovieTransitions.popEnterTransition() },
-        popExitTransition = { _, _ -> MovieTransitions.popExitTransition() }
+        route = NavScreen.Home.route,
+        arguments = emptyList()
       ) {
         HomeTabScreen(
           viewModel = hiltViewModel(),
@@ -86,11 +82,7 @@ fun MainScreen() {
         route = NavScreen.MovieDetails.routeWithArgument,
         arguments = listOf(
           navArgument(NavScreen.MovieDetails.argument0) { type = NavType.LongType }
-        ),
-        enterTransition = { _, _ -> MovieTransitions.enterTransition() },
-        exitTransition = { _, _ -> MovieTransitions.exitTransition() },
-        popEnterTransition = { _, _ -> MovieTransitions.popEnterTransition() },
-        popExitTransition = { _, _ -> MovieTransitions.popExitTransition() }
+        )
       ) { backStackEntry ->
 
         val posterId =
@@ -105,11 +97,7 @@ fun MainScreen() {
         route = NavScreen.TvDetails.routeWithArgument,
         arguments = listOf(
           navArgument(NavScreen.TvDetails.argument0) { type = NavType.LongType }
-        ),
-        enterTransition = { _, _ -> MovieTransitions.enterTransition() },
-        exitTransition = { _, _ -> MovieTransitions.exitTransition() },
-        popEnterTransition = { _, _ -> MovieTransitions.popEnterTransition() },
-        popExitTransition = { _, _ -> MovieTransitions.popExitTransition() }
+        )
       ) { backStackEntry ->
 
         val posterId = backStackEntry.arguments?.getLong(NavScreen.TvDetails.argument0)
@@ -123,11 +111,7 @@ fun MainScreen() {
         route = NavScreen.PersonDetails.routeWithArgument,
         arguments = listOf(
           navArgument(NavScreen.PersonDetails.argument0) { type = NavType.LongType }
-        ),
-        enterTransition = { _, _ -> MovieTransitions.enterTransition() },
-        exitTransition = { _, _ -> MovieTransitions.exitTransition() },
-        popEnterTransition = { _, _ -> MovieTransitions.popEnterTransition() },
-        popExitTransition = { _, _ -> MovieTransitions.popExitTransition() }
+        )
       ) { backStackEntry ->
 
         val personId =
