@@ -31,11 +31,13 @@ inline fun <T> LazyGridScope.paging(
   crossinline fetch: () -> Unit,
   crossinline itemContent: @Composable LazyItemScope.(item: T) -> Unit,
 ) {
+  val currentIndex = currentIndexFlow.value
+
   itemsIndexed(items) { index, item ->
 
     itemContent(item)
 
-    if ((index + threshold + 1) >= pageSize * (currentIndexFlow.value - 1)) {
+    if ((index + threshold + 1) >= pageSize * (currentIndex - 1)) {
       fetch()
     }
   }
