@@ -20,7 +20,7 @@ package com.skydoves.moviecompose.initializer
 
 import android.content.Context
 import androidx.startup.Initializer
-import androidx.viewbinding.BuildConfig
+import com.skydoves.moviecompose.BuildConfig
 import timber.log.Timber
 
 class TimberInitializer : Initializer<Unit> {
